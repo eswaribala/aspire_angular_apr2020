@@ -1,0 +1,62 @@
+.table
+{
+    width: 90%;    
+    margin-left: 5%;  
+    margin-right: 5%;
+}
+
+.td
+{
+    width: 50%; 
+    text-align: left;
+    margin-left: 5%;  
+    margin-right: 5%;
+}
+
+.validation
+{
+    color: orangered;
+}
+
+.example-radio-button {
+    margin: 5px;
+  }
+
+.fieldSet
+{
+    margin-left: 5%;  
+    margin-right: 5%;
+}
+
+.example-full-width
+{
+    width: 90%;
+    margin-left: 5%;  
+    margin-right: 5%;
+}
+
+.example-section {
+    background-color: violet;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+  
+  .example-margin {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+.button {
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 30px;
+}
+
+ .buttonWrapper {
+    text-align: center;
+    height: 30px;
+}
+
+
