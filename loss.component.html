@@ -1,5 +1,5 @@
 <!--reactive form -->
-<form [formGroup]="lossForm" class="lossForm">
+<form [formGroup]="lossForm" (submit)="send()" class="lossForm">
 <fieldset>
   <legend>Loss Details</legend>
   <mat-form-field class="mat-form-field">
@@ -156,7 +156,7 @@
       Police Station
     </mat-placeholder>
 
-    <input type="number" matInput [formControl]="policeStationName">
+    <input type="text" matInput [formControl]="policeStationName">
     <div [hidden]="policeStationName.valid" class="validation">
       <div [hidden]="!policeStationName.hasError('required')">
         **Must enter Police Station Name**
@@ -176,4 +176,195 @@
     </div>
 
 </fieldset>
+
+  <fieldset class="fieldSet">
+    <legend>
+      <h1 style="font-size: 20pt;">Driver Details</h1>
+    </legend>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+            calendar_today
+          </mat-icon>
+          Driver Name
+        </mat-placeholder>
+        <input type="text" matInput [formControl]="driverName" >
+        <div [hidden]="driverName.valid" class="validation">
+          <div [hidden]="!driverName.hasError('required')">Driver Name is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+
+          </mat-icon>
+          RelationShip with Insured
+        </mat-placeholder>
+        <input type="text" matInput [formControl]="relationShip" >
+        <div [hidden]="relationShip.valid" class="validation">
+          <div [hidden]="!relationShip.hasError('required')">RelationShip with Insured is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+
+          </mat-icon>
+          Address
+        </mat-placeholder>
+        <input type="text" matInput [formControl]="address" >
+        <div [hidden]="address.valid" class="validation">
+          <div [hidden]="!address.hasError('required')">Address is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+
+          </mat-icon>
+          Contact Number
+        </mat-placeholder>
+        <input type="number" matInput [formControl]="contactNumber" >
+        <div [hidden]="contactNumber.valid" class="validation">
+          <div [hidden]="!contactNumber.hasError('required')">Contact Number is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+            calendar_today
+          </mat-icon>
+          DOB
+        </mat-placeholder>
+        <input type="date" matInput [formControl]="dateOfBirth" >
+        <div [hidden]="dateOfBirth.valid" class="validation">
+          <div [hidden]="!dateOfBirth.hasError('required')">Date of Birth is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+
+          </mat-icon>
+          Gender
+        </mat-placeholder>
+        <!-- <mat-radio-group [formControl]="gender" >
+            <mat-radio-button class="example-radio-button" *ngFor="let gender of genderList" [value]="gender">
+                {{gender}}
+            </mat-radio-button>
+        </mat-radio-group>
+        <input type="text" matInput [formControl]="gender" > -->
+        <mat-select [formControl]="gender">
+          <mat-option *ngFor="let gender of genderList" [value]="gender">
+            {{gender}}
+          </mat-option>
+        </mat-select>
+        <div [hidden]="gender.valid" class="validation">
+          <div [hidden]="!gender.hasError('required')">Gender is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+
+          </mat-icon>
+          Email
+        </mat-placeholder>
+        <input type="text" matInput [formControl]="email" >
+        <div [hidden]="email.valid" class="validation">
+          <div [hidden]="!email.hasError('required')">Email is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+
+          </mat-icon>
+          Driving License Number
+        </mat-placeholder>
+        <input type="text" matInput [formControl]="drivingLicenseNumber" >
+        <div [hidden]="drivingLicenseNumber.valid" class="validation">
+          <div [hidden]="!drivingLicenseNumber.hasError('required')">Driving License Number is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+            calendar_today
+          </mat-icon>
+          Effective From
+        </mat-placeholder>
+        <input type="date" matInput [formControl]="effectiveFrom" >
+        <div [hidden]="effectiveFrom.valid" class="validation">
+          <div [hidden]="!effectiveFrom.hasError('required')">Effective From is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+            calendar_today
+          </mat-icon>
+          Effective To
+        </mat-placeholder>
+        <input type="date" matInput [formControl]="effectiveTo" >
+        <div [hidden]="effectiveTo.valid" class="validation">
+          <div [hidden]="!effectiveTo.hasError('required')">Effective To is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+
+          </mat-icon>
+          Issuing RTO
+        </mat-placeholder>
+        <input type="text" matInput [formControl]="issuingRTO" >
+        <div [hidden]="issuingRTO.valid" class="validation">
+          <div [hidden]="!issuingRTO.hasError('required')">Issuing RTO is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+
+          </mat-icon>
+          Vehicle Class
+        </mat-placeholder>
+        <mat-select (selectionChange)="getVehicleClass($event)" [formControl]="vehicleClass">
+          <mat-option *ngFor="let vehicleClass of vehicleClasses" [value]="vehicleClass">
+            {{vehicleClass}}
+          </mat-option>
+        </mat-select>
+        <div [hidden]="vehicleClass.valid" class="validation">
+          <div [hidden]="!vehicleClass.hasError('required')">Vehicle Class To is required</div>
+        </div>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-placeholder>
+          <mat-icon>
+
+          </mat-icon>
+          Type Of Driver
+        </mat-placeholder>
+        <mat-select (selectionChange)="getTypeOfDriver($event)" [formControl]="typeOfDriver">
+          <mat-option *ngFor="let typeOfDriver of typeOfDrivers" [value]="typeOfDriver">
+            {{typeOfDriver}}
+          </mat-option>
+        </mat-select>
+        <div [hidden]="typeOfDriver.valid" class="validation">
+          <div [hidden]="!typeOfDriver.hasError('required')">Type Of Driver is required</div>
+        </div>
+      </mat-form-field>
+      <button mat-fab type="submit" color="primary" [disabled]="!lossForm.valid" >
+        <mat-icon>lock_open</mat-icon>
+      </button>
+      <button mat-fab type="reset" color="warn" [disabled]="!lossForm.valid" >
+        <mat-icon>lock_open</mat-icon>
+      </button>
+
+    </div>
+  </fieldset>
+
+
 </form>

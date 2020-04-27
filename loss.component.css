@@ -3,11 +3,13 @@
   width:100%;
   margin-top: 5%;
 
+
 }
 .lossForm fieldset
 {
 
-  margin-top: 5%;
+  margin-top: 15%;
+
 
 }
 .lossForm fieldset legend
@@ -24,5 +26,18 @@
 {
 
   margin-right: 18%;
+
+}
+.lossForm button[type=submit]
+{
+  width:20%;
+  margin-bottom: 2%;
+  margin-left: 10%;
+  margin-right: 25%;
+}
+.lossForm button[type=reset]
+{
+  width:20%;
+  margin-bottom: 2%;
 
 }

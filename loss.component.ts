@@ -14,6 +14,7 @@ export class LossComponent implements OnInit {
   genderList: any;
   isFirFiled = false;
   uploadedFile:File;
+  fileReader:FileReader;
 
   lostDate:FormControl;
   lostTime:FormControl;
@@ -61,7 +62,9 @@ export class LossComponent implements OnInit {
     this.headCount=new FormControl('',
       [Validators.required,,Validators.pattern('[0-9]{1,72}')]);
     this.policeStationName = new  FormControl('', [Validators.required]);
-    this.firNo = new  FormControl('', [Validators.required]);
+
+      this.firNo = new  FormControl('');
+
     this.statement = new  FormControl('', [Validators.required]);
     this.firFiled = new  FormControl('', [Validators.required]);
     this.driverName = new FormControl('', [Validators.required]);
@@ -132,12 +135,21 @@ export class LossComponent implements OnInit {
   {
     console.log(obj.checked);
     this.isFirFiled=obj.checked;
+    if(this.isFirFiled)
+      this.firNo = new  FormControl('',[Validators.required]);
+
 
   }
 
   onFileChanged(obj)
   {
     this.uploadedFile=obj.target.files[0];
+    console.log(this.uploadedFile);
+    this.fileReader= new FileReader();
+    this.fileReader.readAsDataURL(this.uploadedFile);
+    this.fileReader.onload = function (event) {
+      console.log(event.currentTarget);
+    };
 
   }
 
@@ -155,5 +167,19 @@ export class LossComponent implements OnInit {
   {
     console.log(obj.value);
 
+  }
+  getVehicleClass(obj)
+  {
+    console.log(obj.value);
+  }
+
+  getTypeOfDriver(obj)
+  {
+    console.log(obj.value);
+  }
+
+  send()
+  {
+    console.log(this.lossForm.value);
   }
 }
