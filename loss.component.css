@@ -1,62 +1,28 @@
-.table
+.lossForm
 {
-    width: 90%;    
-    margin-left: 5%;  
-    margin-right: 5%;
+  width:100%;
+  margin-top: 5%;
+
+}
+.lossForm fieldset
+{
+
+  margin-top: 5%;
+
+}
+.lossForm fieldset legend
+{
+  text-align: center;
 }
 
-.td
-{
-    width: 50%; 
-    text-align: left;
-    margin-left: 5%;  
-    margin-right: 5%;
-}
 
 .validation
 {
-    color: orangered;
+  color: orangered;
 }
-
-.example-radio-button {
-    margin: 5px;
-  }
-
-.fieldSet
+.mat-form-field
 {
-    margin-left: 5%;  
-    margin-right: 5%;
+
+  margin-right: 18%;
+
 }
-
-.example-full-width
-{
-    width: 90%;
-    margin-left: 5%;  
-    margin-right: 5%;
-}
-
-.example-section {
-    background-color: violet;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
-  }
-  
-  .example-margin {
-    margin-left: 50px;
-    margin-right: 50px;
-  }
-
-.button {
-    margin-left: 5%;
-    margin-right: 5%;
-    height: 30px;
-}
-
- .buttonWrapper {
-    text-align: center;
-    height: 30px;
-}
-
-

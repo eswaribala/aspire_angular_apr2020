@@ -1,25 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormGroup, Form } from '@angular/forms';
-import { InsuraceappService } from 'src/app/services/insuraceapp.service';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
-
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {CountryService} from "../../../services/country.service";
 @Component({
   selector: 'app-loss',
   templateUrl: './loss.component.html',
   styleUrls: ['./loss.component.css']
 })
 export class LossComponent implements OnInit {
-  lostDate: FormControl;
-  lostTime: FormControl;
-  speed: FormControl;
-  lostPlace: FormControl;
-  destinationPlace: FormControl;
-  purposeOfTravel: FormControl;
-  passengerCount: FormControl;  
+  countries:any;
+  purpose:any;
+  vehicleClasses: any;
+  typeOfDrivers: any;
+  genderList: any;
+  isFirFiled = false;
+  uploadedFile:File;
+
+  lostDate:FormControl;
+  lostTime:FormControl;
+  speed:FormControl;
+  place:FormControl;
+  to:FormControl;
+  purposeCtl:FormControl;
+  headCount:FormControl;
   policeStationName : FormControl;
   firNo: FormControl;
-  statement: FormControl;  
-  firFailed: FormControl;
+  statement: FormControl;
+  firFiled: FormControl;
 
   driverName: FormControl;
   relationShip: FormControl;
@@ -34,54 +40,57 @@ export class LossComponent implements OnInit {
   issuingRTO: FormControl;
   vehicleClass: FormControl;
   typeOfDriver: FormControl;
-  
-  lossForm: FormGroup;
 
-  countries: any;
-  purposes: any;
-  vehicleClasses: any;
-  typeOfDrivers: any;
-  genderList: any;
-  isFirFailed = true;
 
-  constructor(private formBuilder: FormBuilder, private insuraceappService: InsuraceappService) { 
-    this.lostDate = new  FormControl('', [Validators.required]);
-    this.lostTime = new  FormControl('', [Validators.required]);
-    this.speed = new  FormControl('', [Validators.required]);
-    this.lostPlace = new  FormControl('', [Validators.required]);
-    this.destinationPlace = new  FormControl('', [Validators.required]); 
-    this.purposeOfTravel = new  FormControl('', [Validators.required]);
-    this.passengerCount = new  FormControl('', [Validators.required,Validators.pattern('[0-9]{1,72}')]);
+
+
+  lossForm:FormGroup;
+  constructor(private formBuilder:FormBuilder,private countryService:CountryService) {
+   this.lostDate=new FormControl('',
+     [Validators.required]);
+    this.lostTime=new FormControl('',
+      [Validators.required]);
+    this.speed=new FormControl('',
+      [Validators.required]);
+    this.place=new FormControl('',
+      [Validators.required,Validators.pattern('[A-Za-z]{5,50}')]);
+    this.to=new FormControl('',
+      [Validators.required,Validators.pattern('[A-Za-z]{5,50}')]);
+    this.purposeCtl=new FormControl('',
+      [Validators.required]);
+    this.headCount=new FormControl('',
+      [Validators.required,,Validators.pattern('[0-9]{1,72}')]);
     this.policeStationName = new  FormControl('', [Validators.required]);
     this.firNo = new  FormControl('', [Validators.required]);
-    this.statement = new  FormControl('', [Validators.required]); 
-    this.firFailed = new  FormControl('', [Validators.required]);    
-    this.driverName = new FormControl('', [Validators.required]); 
-    this.relationShip = new FormControl('', [Validators.required]); 
-    this.address = new FormControl('', [Validators.required]); 
-    this.contactNumber = new FormControl('', [Validators.required]); 
-    this.dateOfBirth = new FormControl('', [Validators.required]); 
-    this.gender = new FormControl('', [Validators.required]); 
-    this.email = new FormControl('', [Validators.required]); 
-    this.drivingLicenseNumber = new FormControl('', [Validators.required]); 
-    this.effectiveFrom = new FormControl('', [Validators.required]); 
-    this.effectiveTo = new FormControl('', [Validators.required]); 
-    this.issuingRTO = new FormControl('', [Validators.required]); 
-    this.vehicleClass = new FormControl('', [Validators.required]); 
-    this.typeOfDriver = new FormControl('', [Validators.required]); 
+    this.statement = new  FormControl('', [Validators.required]);
+    this.firFiled = new  FormControl('', [Validators.required]);
+    this.driverName = new FormControl('', [Validators.required]);
+    this.relationShip = new FormControl('', [Validators.required]);
+    this.address = new FormControl('', [Validators.required]);
+    this.contactNumber = new FormControl('', [Validators.required]);
+    this.dateOfBirth = new FormControl('', [Validators.required]);
+    this.gender = new FormControl('', [Validators.required]);
+    this.email = new FormControl('', [Validators.required]);
+    this.drivingLicenseNumber = new FormControl('', [Validators.required]);
+    this.effectiveFrom = new FormControl('', [Validators.required]);
+    this.effectiveTo = new FormControl('', [Validators.required]);
+    this.issuingRTO = new FormControl('', [Validators.required]);
+    this.vehicleClass = new FormControl('', [Validators.required]);
+    this.typeOfDriver = new FormControl('', [Validators.required]);
 
-    this.lossForm = formBuilder.group({
-      lostDate: this.lostDate,
-      lostTime: this.lostTime,
-      speed: this.speed,
-      lostPlace: this.lostPlace,
-      destinationPlace: this.destinationPlace,
-      purposeOfTravel: this.purposeOfTravel,
-      passengerCount: this.passengerCount,
+    this.lossForm=formBuilder.group({
+     lostDate:this.lostDate,
+     lostTime:this.lostTime,
+     speed:this.speed,
+     place:this.place,
+     to:this.to,
+     purposeCtl:this.purposeCtl,
+     headCount:this.headCount,
+
       policeStationName: this.policeStationName,
       firNo: this.firNo,
       statement: this.statement,
-      firFailed: this.firFailed,
+      firFiled: this.firFiled,
       driverName: this.driverName,
       relationShip: this.relationShip,
       address: this.address,
@@ -95,36 +104,56 @@ export class LossComponent implements OnInit {
       issuingRTO: this.issuingRTO,
       vehicleClass: this.vehicleClass,
       typeOfDriver: this.typeOfDriver
-    });
+
+    })
+
+
   }
 
-  ngOnInit(): void {
-    //Obeservable goes with subscribe
-    this.insuraceappService.getCountries().subscribe(
-      response => {
-          this.countries = response;
-          console.log(this.countries);
-      });
+  ngOnInit() {
 
-      this.purposes = this.insuraceappService.getPurpose();
-      this.vehicleClasses = this.insuraceappService.getVehicleClass();
-      this.typeOfDrivers = this.insuraceappService.getTypeOfDriver();
-      this.genderList = this.insuraceappService.getGender();
+    //observable goes with subscribe
+    this.countryService.getCountries().subscribe(response=>{
+         this.countries=response;
+         console.log(this.countries);
+
+    })
+    this.purpose=this.countryService.getPurpose();
+
+    this.vehicleClasses = this.countryService.getVehicleClass();
+    this.typeOfDrivers = this.countryService.getTypeOfDriver();
+    this.genderList = this.countryService.getGender();
+
+
   }
 
-  getCountry(obj){
-    console.log(obj.value );
+  isFir(obj)
+
+  {
+    console.log(obj.checked);
+    this.isFirFiled=obj.checked;
+
   }
 
-  getPurpose(obj){
-    console.log(obj.value );
+  onFileChanged(obj)
+  {
+    this.uploadedFile=obj.target.files[0];
+
   }
 
-  getVehicleClass(obj){
-    console.log(obj.value );
-  }
+  getCountry(obj)
+  {
+    console.log(obj.value);
 
-  getTypeOfDriver(obj){
-    console.log(obj.value );
+  }
+  getPurpose(obj)
+  {
+    console.log(obj.value);
+
+  }
+  getTo(obj)
+  {
+    console.log(obj.value);
+
   }
 }
